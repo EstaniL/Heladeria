@@ -6,4 +6,4 @@ Para el diseño se utilizo Bootstrap junto con archivos.css
 
 Como base de datos se utilizo Firebase 
 
-Link a demo: https://stunning-stroopwafel-9395cd.netlify.app/
+Link a demo: https://symphonious-speculoos-b64d34.netlify.app/
