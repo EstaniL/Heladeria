@@ -1,0 +1,13 @@
+.loading-circles {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 35px;
+    height: 35px;
+    margin: auto;
+    transform: scale(0.6);
+    -o-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+}

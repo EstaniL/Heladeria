@@ -1,11 +1,11 @@
 
-import {AiOutlineShoppingCart} from 'react-icons/Ai'
+import { useCartContext } from "../../context/CartContext"
 
 const CartWidget = () => {
+  const {totalCount} = useCartContext()
   return (
     <>
-      <AiOutlineShoppingCart style={{color:"white"}}/>
-
+        <div> {totalCount() !== 0 && totalCount()} 🛒</div>
     </>
   )
 }

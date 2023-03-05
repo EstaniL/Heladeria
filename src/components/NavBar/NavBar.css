@@ -1,0 +1,9 @@
+.navbar {
+    text-decoration: none;
+    color: white;
+    font-size: var(--bs-navbar-brand-font-size);
+    margin-right: var(--bs-navbar-brand-margin-end);
+}
+.navbar:hover{
+    color: white;
+}

@@ -1,82 +1,47 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
-import { gFetch } from "../../utils/gFetch"
+import { useParams } from "react-router-dom"
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore'
+import ItemList from "../ItemList/ItemList"
+import { Loading } from "../Loading/Loading"
+
+export const ItemListContainer = () => {
+  const [productos, setProductos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const { idCategory } = useParams()
+
+  useEffect(() => {
+    setLoading(true)
+    const db = getFirestore()
+    const queryCollections = collection(db, 'productos')
+    const queryFilter = idCategory ? query(queryCollections, where('categoria', '==', idCategory)) : queryCollections
+
+    getDocs(queryFilter)
+      .then(resp => setProductos(resp.docs.map(product => ({ id: product.id, ...product.data() }))))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false))
+  }, [idCategory])
 
 
-export const ItemListContainer = ({ saludo }) => {
-  const [ productos, setProductos ] = useState([])
-  const [ loading, setLoading ] = useState(true)
-
-  const { idCategoria } = useParams()
-
-  useEffect(()=>{
-    if (idCategoria) {
-      gFetch()
-        .then(res => {      
-          setProductos(res.filter(producto => producto.categoria === idCategoria))
-          // debe hacer una sola cosa
-        })
-        .catch(error => console.log(error))
-        .finally(()=> setLoading(false))      
-    } else {
-      gFetch()
-        .then(res => {      
-          setProductos(res)
-          // debe hacer una sola cosa
-        })
-        .catch(error => console.log(error))
-        .finally(()=> setLoading(false))
-      
-    }
-  }, [idCategoria])
-
- 
-
-
-  console.log(idCategoria)
-
-
-  // [1,2,3,4] -> [ <li>{1}</li>, <li>{2}</li>, ....]
   return (
-    
-         loading 
-          ? 
-            <h2>Cargando....</h2> 
-          : 
-          <>
-          <h1>Bienvenido</h1>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap'
-          }} >
-           { productos.map(producto =>   (
-                <div key={producto.id} className='card w-25 mt-2' >
-                  <Link to={`/detalle/${producto.id}`}>
-                    <div className='card-header'>
-                      Nombre: {producto.name}
-                    </div>
-                    <div className='card-body'>
-                      <img src={producto.foto} alt='foto' className="w-100"/>
-                      Categoria: {producto.categoria}<br/>
-                      Precio: {producto.price}
-                    </div>
-                    <div className='card-footer'>
-                        {/* <button className="btn btn-outline-primary w-100">Detalle</button> */}
-                    </div>
-                  </Link>
-
-                </div>
-              )
-            )}
-
-          
+    loading
+      ?
+      <Loading />
+      :
+      <>
+        <div className="container py-5 ">
+          <div className="row">
+            <div className="col-12 mb-5">
+              <h1 className="display-6 fw-bolder text-center">{idCategory?idCategory.toUpperCase():"Bienvenidos"}</h1>
+              <hr />
+            </div>
           </div>
-          </>
-          
-    
-    // <h1>
-    // </h1>
+          <div className="row justify-content-center">
+            {loading ? <Loading/> :<ItemList productos={productos}/> }
+          </div>
+        </div>
 
+      </>
   )
 }
+
+
