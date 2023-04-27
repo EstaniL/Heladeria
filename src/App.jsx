@@ -22,7 +22,7 @@ function App() {
                         <Route  path='/cart' element={ <CartContainer />  } />
                         <Route  path='/ordenConfirmada' element={ <ItemListContainer/> } />                 
 
-                        <Route path='*' element={ <Navigate to='/' /> } />
+                        <Route path='*' element={ <Navigate to='/' /> } /> {/*Cuando se escriba una ruta que no esta definida, va a el home */}
                     </Routes>
                 </div>               
             </CartContextProvider>
