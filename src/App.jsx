@@ -9,6 +9,7 @@ import { CartContextProvider } from './context/CartContext';
 
 function App() { 
    // estados 
+   console.log("Hola rama2")
     return (
         <BrowserRouter>
             <CartContextProvider>
