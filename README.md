@@ -8,7 +8,3 @@ Como base de datos se utilizo Firebase
 
 Link a demo: https://symphonious-speculoos-b64d34.netlify.app/
 
-Cambios en ramaPrueba
-Cambio 2 en ramaPrueba
-
-Cambios en ramaPrueba2
